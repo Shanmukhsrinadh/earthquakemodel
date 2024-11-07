@@ -1,0 +1,51 @@
+
+   
+    
+    <html>
+    <head>
+        <title>Predicted Mangnitude</title>
+        <style>
+            .container {
+                display: flex; /* Use flexbox layout */
+                justify-content: space-between; /* Distribute items along the main axis */
+                border: 1px solid #1b1616; /* Border for visualization */
+                padding: 10px; /* Add some padding */
+            }
+        
+            .data {
+                width: 45%; /* Set width for each data block */
+                border: 1px solid #140b0b; /* Border for visualization */
+                padding: 10px; /* Add some padding */
+                color: #0c0303;
+            }
+            table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;    
+            padding: 8px;
+            text-align: left;
+            color: #090101;
+        }
+        th {
+            background-color: #666666;
+        }
+        </style>
+        
+    </head>
+    <body>
+
+        <h1>Predicted Mangnitude: {{ predicted_growth }}</h1>
+        <h2>Mean Squared Error (MSE): {{ mse }}</h2>
+        <h2>Mean Absolute Error (MAE): {{ mae }}</h2>
+        <h2>R-squared (R2) Score: {{ r2 }}</h2>
+        <h2>Estimated time of S-Wave arraival to Requried Station: {{ ty }}</h2>
+       
+            
+       
+    </body>
+
+    </html>
+    
+

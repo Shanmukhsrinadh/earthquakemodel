@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Effect | Codehal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f2f2f2;
+        }
+
+        .menu-wrapper {
+            background-color: rgba(8, 8, 8, 0.8); /* Adjust the opacity and color as needed */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure the menu wrapper appears above other elements */
+            padding: 10px 20px; /* Adjust padding as needed */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add a shadow for a subtle effect */
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .menu {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li {
+            margin-right: 20px; /* Adjust spacing between menu items */
+        }
+
+        .menu li:last-child {
+            margin-right: 0; /* Remove margin for the last menu item */
+        }
+
+        .menu li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease; /* Add transition for color change */
+}
+
+.menu li:hover a {
+    color: #aaa5bd; /* Change color on hover */
+    animation: shake 0.5s ease; /* Add shake animation */
+}
+        .toggle-label {
+            margin-left: auto; /* Move the toggle switch to the right */
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            border-radius: 5px; /* Smooth border radius for a softer look */
+            transition: box-shadow 0.3s ease; /* Transition for hover effects */
+        }
+        
+        .dropdown:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Slight shadow for hovering effect */
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(to bottom, #424242, #1b1b1b); /* Updated gradient for a modern feel */
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Crisp shadow for depth */
+            z-index: 1;
+            border-radius: 10px; /* Consistent border radius */
+            opacity: 0; /* Start invisible */
+            transition: opacity 0.5s, transform 0.3s; /* Smooth transitions for opening */
+            transform-origin: top; /* Transform origin to top for a "growing" effect */
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1; /* Fade in effect */
+            transform: scaleY(1); /* Scale for a dynamic appearance */
+        }
+        
+        .dropdown-content a {
+            color: #ffffff; /* Bright text for better readability */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s; /* Smooth background transition on hover */
+        }
+        
+        .dropdown-content a:hover {
+            background-color: rgba(0, 0, 0, 0.3); /* Subtle hover effect */
+        }
+        
+        /* Responsive design adjustments for better mobile experience */
+        @media (max-width: 768px) {
+            .dropdown-content {
+                position: static; /* Adjust position for mobile */
+                width: 100%; /* Full width for easier mobile interaction */
+            }
+        }
+        
+        .parallax-1 {
+            background: url('https://i.imgur.com/gymV29Z.jpg') no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .parallax-1.dark-mode {
+            background-image: url('https://i.imgur.com/KBN0jpF.jpg');
+        }
+
+        .parallax-inner {
+            padding: 18% 0;
+        }
+
+        h1 {
+            font-size: 48px;
+            text-align: left;
+            margin: 20px;
+            text-decoration: underline;
+            background-image: linear-gradient(to right, rgb(226, 226, 236), rgb(8, 44, 49));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 32px;
+            color: #555;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555555;
+            text-align: justify;
+            line-height: 30px;
+            margin: 0 50px 40px;
+        }
+
+        p:nth-of-type(2) {
+            margin: 40px 50px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            margin-top: 100px;
+            /* Adjust as needed */
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .follow-text {
+            display: block;
+            margin-bottom: 10px;
+            text-align: center; /* Center align the text */
+            color: #ffffff;
+        }
+
+        /* Toggle Switch Styles */
+        .toggle-label {
+            position: fixed;
+            top: 15px;
+            right: 40px;
+            display: block;
+            width: 40px;
+            height: 20px;
+            background-color: #ccc;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        .toggle-label:before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        input[type="checkbox"]:checked+.toggle-label:before {
+            transform: translateX(20px);
+        }
+
+        /* Light Mode Styles */
+        body.light-mode {
+            background-color: #f2f2f2;
+            color: #000000;
+        }
+
+        .light-mode .menu li a,
+        .light-mode .dropdown-content a {
+            color: #000000;
+        }
+
+        .light-mode .dropdown-content a:hover {
+            background-color: #000000ee;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #000000e5;
+            color: #ffffff;
+        }
+
+        .dark-mode .menu li a,
+        .dark-mode .dropdown-content a {
+            color: #fffffff3;
+        }
+
+        .dark-mode .dropdown-content a:hover {
+            background-color: #2a2c3598;
+        }
+        body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.title {
+    margin-bottom: 40px;
+}
+
+h1,
+h2 {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #555555;
+    margin-bottom: 20px;
+}
+
+.advantages {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.advantage {
+    width: 45%;
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.advantage h3 {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.advantage p {
+    font-size: 1em;
+    line-height: 1.5;
+    color: #666;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="menu-wrapper">
+        <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li class="dropdown">
+                <a href="#">Explore</a>
+                <div class="dropdown-content">
+                    <a href="predict">Predict</a>
+                    <a href="data">Data</a>
+                </div>
+            </li>
+            <li><a href="aboutus">About Us</a></li>
+        </ul>
+
+        <!-- Toggle Switch -->
+        <input type="checkbox" id="theme-toggle">
+        <label for="theme-toggle" class="toggle-label"></label>
+    </div>
+
+    <section>
+        <section class="parallax-1">
+            <div class="parallax-inner">
+                <h1 id="color">Early Earthquake Alert!</h1>
+            </div>
+        </section>
+        <h2>Welcome!</h2>
+        <p>
+            Welcome to our website dedicated to Earthquake Early Alert! We understand the critical importance of timely
+            information and proactive measures when it comes to earthquake detection and response. Our mission is to
+            provide you with the latest technology and insights to stay informed and prepared in the event of seismic
+            activity.<br>Through innovative solutions and real-time data analysis, we aim to empower individuals,
+            communities, and organizations to mitigate risks and enhance safety. Whether you're a researcher, a
+            government agency, or an individual concerned about seismic events, we have resources and tools to support
+            your needs.<br>
+
+            Join us in our journey towards a safer and more resilient future. Explore our website to learn more about
+            our solutions, stay updated with earthquake news, and discover how you can contribute to early earthquake
+            alert efforts. Together, we can make a difference in earthquake preparedness and response worldwide.</p>
+            <div class="container">
+                <section class="title">
+                    <h1>WHY OUR EARTHQUAKE DETECTION & ALERT?</h1>
+                </section>
+                <section class="advantages">
+                    <div class="advantage">
+                        <img src="https://i.imgur.com/bH6Wy2y.png" alt="MORE TIME TO PROTECT YOUR ASSETS">
+                        <h3>MORE TIME TO PROTECT YOUR ASSETS</h3>
+                        <p>Our EEW solution reduces False positives and misses, and informs on precise location and magnitude. This prevents unnecessary halts and shutdowns.</p>
+                    </div>
+                   <div class="advantage">
+    <img src="https://i.imgur.com/zM7ZhyJ.png" alt="High Precision Image">
+    <h3>HIGH PRECISION</h3>
+    <p>Our global seismological algorithms are operational in days. They easily incorporate multiple data sources, from standard seismic sensors or proprietary array technology.</p>
+</div>
+                    <div class="advantage">
+                        <img src="https://i.imgur.com/9ZXVUi1.png" alt="PERFORMANCE GUARANTEE">
+                        <h3>PERFORMANCE GUARANTEE</h3>
+                        <p>The only company worldwide insured by a reinsurance company, with compensation for false or missed alerts.</p>
+                    </div>
+                    <div class="advantage">
+                        <img src="https://i.imgur.com/K8hAaBs.png" alt="COST-EFFECTIVE">
+                        <h3>COST-EFFECTIVE</h3>
+                        <p>Our seismic alert solutions are easily accessible to business and public entities of all sizes</p>
+                    </div>
+                </section>
+            </div>
+        
+            <footer>
+            <p class="follow-text">follow us on</p>
+            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/?lang=en"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://mail.google.com/mail/u/0/"><i class="far fa-envelope"></i></a>
+            <a href="https://in.linkedin.com/"><i class="fab fa-linkedin"></i></a>
+        </footer>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            themeToggle.addEventListener('change', function () {
+                if (this.checked) {
+                    body.classList.add('dark-mode');
+                    document.querySelector('.parallax-1').classList.add('dark-mode');
+                } else {
+                    body.classList.remove('dark-mode');
+                    document.querySelector('.parallax-1').classList.remove('dark-mode');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
